@@ -9,7 +9,7 @@ def tool(
     description: str,
     parameters: dict,
     artifact_name: str,
-    requires: list[str] = None,
+    requires: list[str] | None = None,
 ):
     requires = requires or []
 

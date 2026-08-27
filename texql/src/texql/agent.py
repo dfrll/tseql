@@ -26,22 +26,23 @@ def _parse_args(call):
 
 
 def _get_table_payload(
-    tool_func: Any, result: pl.DataFrame, max_rows: int, log: BoundLogger
-) -> dict | None:
-    """polars dataframe -> JSON payload that can be used to render a table in the UI."""
-    artifact_name = tool_func.artifact_name
+    artifact_name: str,
+    result: pl.DataFrame,
+    max_rows: int,
+    log: BoundLogger,
+) -> dict:
+    preview = result.head(max_rows)
 
     log.info(
         "jsonify_dataframe",
         artifact_name=artifact_name,
         dimensions=result.shape,
-        effective_max_rows=min(result.height, max_rows),
+        effective_max_rows=preview.height,
         max_rows_allowed=max_rows,
     )
 
-    preview = result.head(max_rows)
-
     return {
+        "artifact": artifact_name,
         "columns": preview.columns,
         "rows": preview.to_dicts(),
         "preview_count": preview.height,
@@ -56,8 +57,14 @@ def run_agent(user_msg, services, config, base_log):
     response = services.llm.responses.create(
         model=model,
         input=[
-            {"role": "system", "content": "Available tool: sql"},
-            {"role": "user", "content": user_msg},
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            },
+            {
+                "role": "user",
+                "content": user_msg,
+            },
         ],
         tools=LLM_SCHEMAS,
     )
@@ -116,7 +123,20 @@ def run_agent(user_msg, services, config, base_log):
             tools=LLM_SCHEMAS,
         )
 
+    # last DataFrame artifact,
+    table = None
+
+    for artifact_name, artifact in reversed(list(artifacts.items())):
+        if isinstance(artifact, pl.DataFrame):
+            table = _get_table_payload(
+                artifact_name=artifact_name,
+                result=artifact,
+                max_rows=100,
+                log=base_log,
+            )
+            break
+
     return {
         "reply": response.output_text or "Done.",
-        # "table": table_payload,
+        "table": table,
     }
