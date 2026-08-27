@@ -4,17 +4,17 @@ set -e
 PROJECT_HOME="$1"
 
 if [ -z "$PROJECT_HOME" ]; then
-    echo "Usage: $0 /path/to/TexQL"
+    echo "Usage: $0 /path/to/tseql"
     exit 1
 fi
 
-BACKEND_DIR="$PROJECT_HOME/texql/src"
+BACKEND_DIR="$PROJECT_HOME/tseql/src"
 FRONTEND_DIR="$PROJECT_HOME/fend"
 
 echo "Starting Flask backend..."
 (
     cd "$BACKEND_DIR"
-    FLASK_APP=texql.app poetry run flask run
+    FLASK_APP=tseql.app poetry run flask run
 ) &
 BACKEND_PID=$!
 

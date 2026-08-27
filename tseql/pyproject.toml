@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "texql"
+name = "rtseql"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Drew Ferrell <dfrll@proton.me>"]
 readme = "README.md"
-packages = [{ include = "texql", from = "src" }]
+packages = [{ include = "tseql", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
