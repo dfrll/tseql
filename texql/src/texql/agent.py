@@ -9,11 +9,8 @@ from typing import Any
 SYSTEM_PROMPT = """
 You have access to function tools.
 
-When the user asks about metadata, samples, projects, counts, diseases,
-or anything requiring database access, you MUST call the sql tool.
-
+Call the sql tool to retrieve either spefific dataset characteristics or to run a query.
 Do not invent database results.
-Always use the sql tool to retrieve metadata.
 """
 
 
