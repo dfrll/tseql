@@ -1,6 +1,10 @@
 # tseql
 
-Prompt to SQL connecting OpenAI and Cloudflare services. 
+Prompt to SQL connecting OpenAI and Cloudflare services.
+
+## Requirements
+
+* Cloudflare account and D1 database.
 
 ## Configure
 
