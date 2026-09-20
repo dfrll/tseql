@@ -6,7 +6,8 @@ Prompt to SQL connecting OpenAI and Cloudflare services.
 
 <img width="1920" height="970" alt="sample_count" src="https://github.com/user-attachments/assets/9b4cbf99-e91b-445a-89ab-fba75aa600ce" />
 
-<img width="1920" height="970" alt="table_schema" src="https://github.com/user-attachments/assets/a45508b3-0b7f-4bba-bcca-c202f505a905" />
+<img width="1920" height="967" alt="query_example" src="https://github.com/user-attachments/assets/316a2704-3271-43bb-9190-5af2aa064ad5" />
+
 
 ## Requirements
 
