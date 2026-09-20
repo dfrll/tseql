@@ -108,6 +108,7 @@ def run_agent(user_msg, services, config, base_log):
                         {
                             "artifact": tool_func.artifact_name,
                             "row_count": getattr(result, "height", 0),
+                            "result": result.write_json(),
                         }
                     ),
                 }
